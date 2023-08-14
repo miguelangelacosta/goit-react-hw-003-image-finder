@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImageGalleryItem from './ImageGalleryItem';
-
+import './ImageGalleryItem.css'
 class ImageGallery extends Component {
   render() {
     const { images, onImageClick } = this.props;
