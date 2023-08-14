@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Searchbar from './Searchbar';
-import ImageGallery from './ImageGallery';
-import Button from './Button';
-import Loader from './Loader';
-import Modal from './Modal';
-
+import Searchbar from './Searrchbar/Searchbar';
+import ImageGallery from './ImageGalery/ImageGallery';
+import Button from './Button/Button';
+import Loader from './Loader/Loader';
+import Modal from './Modal/Modal';
+import './App.css'; 
 const API_KEY = '38758233-8fc35b3d0bfcc58c4cf74e0b5';
 const BASE_URL = 'https://pixabay.com/api/';
 
@@ -27,7 +27,7 @@ class App extends Component {
     this.setState({ isLoading: true });
 
     axios
-      .get(`${BASE_URL}?q=${query}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`)
+      .get(`${BASE_URL}?q=${query}&page=${page}&key=${API_KEY}&image_type=photo&orientation=vertical&per_page=12`)
       .then(response => {
         this.setState(prevState => ({
           images: [...prevState.images, ...response.data.hits],
@@ -63,7 +63,9 @@ class App extends Component {
         <Searchbar onSubmit={this.handleSearchSubmit} />
         <ImageGallery images={images} onImageClick={this.handleImageClick} />
         {isLoading && <Loader />}
-        {!!images.length && !isLoading && <Button onClick={this.handleLoadMore} />}
+        {!!images.length && !isLoading && (
+          <Button onClick={this.handleLoadMore}>Load more</Button>
+        )}
         {selectedImage && (
           <Modal imageUrl={selectedImage} onClose={this.handleCloseModal} />
         )}

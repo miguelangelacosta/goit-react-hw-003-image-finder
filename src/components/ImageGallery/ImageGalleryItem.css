@@ -1,0 +1,19 @@
+.ImageGallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 16px;
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+  
+  /* Estilos para las imágenes en la galería */
+  .ImageGalleryItem {
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .ImageGalleryItem:hover {
+    transform: scale(1.05);
+  }

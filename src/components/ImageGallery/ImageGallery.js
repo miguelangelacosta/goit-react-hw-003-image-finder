@@ -3,11 +3,6 @@ import PropTypes from 'prop-types';
 import ImageGalleryItem from './ImageGalleryItem';
 
 class ImageGallery extends Component {
-  static propTypes = {
-    images: PropTypes.array.isRequired,
-    onImageClick: PropTypes.func.isRequired,
-  };
-
   render() {
     const { images, onImageClick } = this.props;
 
@@ -25,5 +20,10 @@ class ImageGallery extends Component {
     );
   }
 }
+
+ImageGallery.propTypes = {
+  images: PropTypes.array.isRequired,
+  onImageClick: PropTypes.func.isRequired,
+};
 
 export default ImageGallery;
