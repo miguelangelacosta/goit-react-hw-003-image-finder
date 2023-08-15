@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Searchbar from './Searrchbar/Searchbar';
-import ImageGallery from './ImageGalery/ImageGallery';
-import Button from './Button/Button';
-import Loader from '../../Loader';
-import Modal from './Modal/Modal';
+import Searchbar from './components/Searrchbar/Searchbar';
+import ImageGallery from './components/ImageGalery/ImageGallery';
+import Button from './components/Button/Button';
+import Loader from './components/Loader/Loader';
+import Modal from './components/Modal/Modal';
 import './App.css'; 
 const API_KEY = '38758233-8fc35b3d0bfcc58c4cf74e0b5';
 const BASE_URL = 'https://pixabay.com/api/';

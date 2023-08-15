@@ -1,12 +1,16 @@
 import React from 'react';
-// Debes importar ReactDOM
-import App from './components/App';
+
+import App from './App';
 import { createRoot } from 'react-dom'; // Importa createRoot directamente desde 'react-dom'
 
 import './index.css';
 
 // Utiliza createRoot para renderizar tu aplicación
-createRoot(document.getElementById('root')).render(
+const rootElement = document.getElementById('root');
+
+// Utiliza createRoot para renderizar tu aplicación
+const root = createRoot(rootElement);
+root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
