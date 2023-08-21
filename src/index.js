@@ -1,17 +1,17 @@
-import React from 'react';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { PersistGate } from "redux-persist/integration/react";
+import "slick-carousel/slick/slick.css";
+import { Provider } from "react-redux";
+import { store, persistor } from "./redux/store";
+import "./index.css";
+import App from "./App";
 
-import App from './App';
-import { createRoot } from 'react-dom'; // Importa createRoot directamente desde 'react-dom'
-
-import './index.css';
-
-// Utiliza createRoot para renderizar tu aplicación
-const rootElement = document.getElementById('root');
-
-// Utiliza createRoot para renderizar tu aplicación
-const root = createRoot(rootElement);
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
+  </Provider>
 );

@@ -1,77 +1,69 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import Searchbar from './components/Searrchbar/Searchbar';
-import ImageGallery from './components/ImageGalery/ImageGallery';
-import Button from './components/Button/Button';
-import Loader from './components/Loader/Loader';
-import Modal from './components/Modal/Modal';
-import './App.css'; 
-const API_KEY = '38758233-8fc35b3d0bfcc58c4cf74e0b5';
-const BASE_URL = 'https://pixabay.com/api/';
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+  createRoutesFromElements,
+  Route,
+  ScrollRestoration,
+} from "react-router-dom";
+import Footer from "./components/home/Footer/Footer";
+import FooterBottom from "./components/home/Footer/FooterBottom";
+import Header from "./components/home/Header/Header";
+import HeaderBottom from "./components/home/Header/HeaderBottom";
+import SpecialCase from "./components/SpecialCase/SpecialCase";
+import About from "./pages/About/About";
+import SignIn from "./pages/Account/SignIn";
+import SignUp from "./pages/Account/SignUp";
+import Cart from "./pages/Cart/Cart";
+import Contact from "./pages/Contact/Contact";
+import Home from "./pages/Home/Home";
+import Journal from "./pages/Journal/Journal";
+import Offer from "./pages/Offer/Offer";
+import Payment from "./pages/payment/Payment";
+import ProductDetails from "./pages/ProductDetails/ProductDetails";
+import Shop from "./pages/Shop/Shop";
 
-class App extends Component {
-  state = {
-    images: [],
-    query: '',
-    page: 1,
-    selectedImage: null,
-    isLoading: false,
-  };
+const Layout = () => {
+  return (
+    <div>
+      <Header />
+      <HeaderBottom />
+      <SpecialCase />
+      <ScrollRestoration />
+      <Outlet />
+      <Footer />
+      <FooterBottom />
+    </div>
+  );
+};
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route>
+      <Route path="/" element={<Layout />}>
+        {/* ==================== Header Navlink Start here =================== */}
+        <Route index element={<Home />}></Route>
+        <Route path="/shop" element={<Shop />}></Route>
+        <Route path="/about" element={<About />}></Route>
+        <Route path="/contact" element={<Contact />}></Route>
+        <Route path="/journal" element={<Journal />}></Route>
+        {/* ==================== Header Navlink End here ===================== */}
+        <Route path="/offer" element={<Offer />}></Route>
+        <Route path="/product/:_id" element={<ProductDetails />}></Route>
+        <Route path="/cart" element={<Cart />}></Route>
+        <Route path="/paymentgateway" element={<Payment />}></Route>
+      </Route>
+      <Route path="/signup" element={<SignUp />}></Route>
+      <Route path="/signin" element={<SignIn />}></Route>
+    </Route>
+  )
+);
 
-  handleSearchSubmit = newQuery => {
-    this.setState({ query: newQuery, page: 1, images: [] });
-    this.fetchImages(newQuery, 1);
-  };
-
-  fetchImages = (query, page) => {
-    this.setState({ isLoading: true });
-
-    axios
-      .get(`${BASE_URL}?q=${query}&page=${page}&key=${API_KEY}&image_type=photo&orientation=vertical&per_page=12`)
-      .then(response => {
-        this.setState(prevState => ({
-          images: [...prevState.images, ...response.data.hits],
-          page: prevState.page + 1,
-        }));
-      })
-      .catch(error => {
-        console.error('Error fetching images:', error);
-      })
-      .finally(() => {
-        this.setState({ isLoading: false });
-      });
-  };
-
-  handleLoadMore = () => {
-    const { query, page } = this.state;
-    this.fetchImages(query, page);
-  };
-
-  handleImageClick = imageUrl => {
-    this.setState({ selectedImage: imageUrl });
-  };
-
-  handleCloseModal = () => {
-    this.setState({ selectedImage: null });
-  };
-
-  render() {
-    const { images, isLoading, selectedImage } = this.state;
-
-    return (
-      <div className="app">
-        <Searchbar onSubmit={this.handleSearchSubmit} />
-        <ImageGallery images={images} onImageClick={this.handleImageClick} />
-        {isLoading && <Loader />}
-        {!!images.length && !isLoading && (
-          <Button onClick={this.handleLoadMore}>Load more</Button>
-        )}
-        {selectedImage && (
-          <Modal imageUrl={selectedImage} onClose={this.handleCloseModal} />
-        )}
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div className="font-bodyFont">
+      <RouterProvider router={router} />
+    </div>
+  );
 }
 
 export default App;
